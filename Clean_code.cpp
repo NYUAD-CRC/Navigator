@@ -1,23 +1,41 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <map>
+
 using namespace std;
 
 vector< int > ReadFun(string filename );
-
+map<int, int> FilterValues(vector< int >);
 int main() {
 
 // Reading the input file into a a vector of integers 
 vector< int > result=ReadFun("bcidInTrain_ttbar_e8453_e8455_s3873_s3874_r14239.txt");
 
-for(int i=0; i < result.size(); i++)
+map<int, int> sample_map;
+for(int i=0; i < result.size()-2; i=i+2)
 {
-    std::cout << result.at(i);
-    std::cout << std::endl;
-}
-   
+    //cout<<"I = "<<i<<endl;
+    int x=result.at(i+1);
+    //std::cout << "x is" <<x<<endl;;
+    
+    if ( x> 21)
+    {
+        //cout<<" iam here"<<endl;
+        sample_map[result.at(i)]=result.at(i+1);
+    }
+    else
+    {
+        //cout<<"no"<<endl;
+    }
 
 }
+ cout <<sample_map.size()<<endl;
+
+        for (auto const &pair: sample_map) {
+        std::cout << "{" << pair.first << ": " << pair.second << "}\n";
+    }
+} 
 
 vector< int > ReadFun(string filename )
 {
